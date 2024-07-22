@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+https://github.com/SafalSilwal/safalblog<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
@@ -64,3 +64,5 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+Several Challanges I had faced during completing this assignment.Authorization issues ensure only post owners can view, edit, or delete posts, requiring identity verification in controller methods. Input validation is essential to prevent invalid data submissions, using Laravel's built-in validation. Properly handling relationships with Eloquent ensures efficient data management between users and their posts. Accurate database migrations are necessary to support the required table structures and relationships. Clear error handling and user feedback improve user experience and debugging. Finally, correct use of route model binding and dependency injection simplifies controller methods and ensures reliable data retrieval and handling.
