@@ -18,6 +18,7 @@ return [
 
     'default' => env('DB_CONNECTION', 'mongodb'),
 
+
     /*
     |--------------------------------------------------------------------------
     | Database Connections
@@ -30,6 +31,11 @@ return [
     */
 
     'connections' => [
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'dsn' => env('MONGO_DB_CONNECTION'). '://'.env('MONGO_DB_HOST').':'.env('MONGO_DB_PORT'),
+            'database' => env('MONGO_DB_DATABASE')
+        ],
 
         'mongodb' => [ 
             'driver' => 'mongodb',

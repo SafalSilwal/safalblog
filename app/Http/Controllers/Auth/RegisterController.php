@@ -5,39 +5,50 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
+use Symfony\Component\HttpFoundation\Response;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
-
     use RegistersUsers;
 
     /**
-     * Where to redirect users after registration.
+     * URL to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * Initialize the controller and apply middleware.
      */
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Show the registration form with a specified role.
+     *
+     * @param  string  $role
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function showRegistrationForm(string $role = 'user')
+    {
+        return $this->view('auth.register', compact('role'));
+    }
+
+    /**
+     * Show the admin registration form.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function showAdminRegistrationForm()
+    {
+        return $this->showRegistrationForm('admin');
     }
 
     /**
@@ -48,11 +59,21 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        return Validator::make($data, $this->validationRules());
+    }
+
+    /**
+     * Define validation rules for registration.
+     *
+     * @return array
+     */
+    protected function validationRules(): array
+    {
+        return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        ];
     }
 
     /**
@@ -61,12 +82,66 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(array $data): User
     {
-        return User::create([
+        $role = request()->input('role', 'user'); // Default role
+
+        return User::create($this->userData($data, $role));
+    }
+
+    /**
+     * Prepare user data for creation.
+     *
+     * @param  array  $data
+     * @param  string  $role
+     * @return array
+     */
+    protected function userData(array $data, string $role): array
+    {
+        return [
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-        ]);
+            'role' => $role,
+        ];
+    }
+
+    /**
+     * Handle the post-registration process.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function registered(Request $request, User $user): Response
+    {
+        return $this->redirectUser($user);
+    }
+
+    /**
+     * Redirect users based on their role.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    protected function redirectUser(User $user): Response
+    {
+        if ($user->isAdmin()) {
+            return Redirect::route('admin.dashboard');
+        }
+
+        return Redirect::intended($this->redirectPath());
+    }
+
+    /**
+     * Return a view with the given path and data.
+     *
+     * @param  string  $path
+     * @param  array   $data
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    protected function view(string $path, array $data)
+    {
+        return view($path, $data);
     }
 }
