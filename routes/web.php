@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PostController;
@@ -9,7 +10,7 @@ use App\Http\Controllers\Auth\RegisterController;
 // Home Route
 Route::get('/', function () {
     return view('frontpage'); // Replace 'home' with the actual view you want to load
-})->name('home');
+})->name('frontpage');
 
 // Public Blog Routes for Users and Authors
 Route::prefix('posts')->name('posts.')->group(function () {
@@ -29,33 +30,20 @@ Route::get('admin/register', [RegisterController::class, 'showAdminRegistrationF
 // Admin Routes with Middleware and Prefix
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
 
-    // Dashboard Route
-    Route::get('dashboard', fn() => view('admin.dashboard'))->name('dashboard'); // Update view path as needed
+     // Update view path as needed
 
     // Admin User Management Routes
-    Route::prefix('users')->name('users.')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->name('index');
-        Route::get('create', [UserController::class, 'create'])->name('create');
-        Route::post('/', [UserController::class, 'store'])->name('store');
-        Route::get('{user}/edit', [UserController::class, 'edit'])->name('edit');
-        Route::put('{user}', [UserController::class, 'update'])->name('update');
-        Route::delete('{user}', [UserController::class, 'destroy'])->name('destroy');
-    });
+
+    Route::resource('users', UserController::class);
 
     // Admin Blog Management Routes
-    Route::prefix('posts')->name('posts.')->group(function () {
-        Route::get('/', [PostController::class, 'index'])->name('index');
-        Route::get('create', [PostController::class, 'create'])->name('create');
-        Route::post('/', [PostController::class, 'store'])->name('store');
-        Route::get('{post}/edit', [PostController::class, 'edit'])->name('edit');
-        Route::put('{post}', [PostController::class, 'update'])->name('update');
-        Route::delete('{post}', [PostController::class, 'destroy'])->name('destroy');
-    });
+    Route::resource('users', PostController::class);
+   
 });
 
 // Author Routes (Reuse Admin Routes)
 Route::middleware(['auth', 'author'])->prefix('author')->name('author.')->group(function () {
-    Route::get('dashboard', fn() => view('author.dashboard'))->name('dashboard'); // Update view path as needed
+    Route::get('dashboard', fn() => view('home'))->name('dashboard'); // Update view path as needed
 
     // Author Blog Management Routes (similar to Admin)
     Route::prefix('posts')->name('posts.')->group(function () {
@@ -69,4 +57,4 @@ Route::middleware(['auth', 'author'])->prefix('author')->name('author.')->group(
 });
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth', 'admin');;
