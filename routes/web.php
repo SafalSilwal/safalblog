@@ -8,7 +8,7 @@ use App\Http\Controllers\Auth\RegisterController;
 
 // Home Route
 Route::get('/', function () {
-    return view('home'); // Replace 'home' with the actual view you want to load
+    return view('frontpage'); // Replace 'home' with the actual view you want to load
 })->name('home');
 
 // Public Blog Routes for Users and Authors
@@ -67,10 +67,6 @@ Route::middleware(['auth', 'author'])->prefix('author')->name('author.')->group(
         Route::delete('{post}', [PostController::class, 'destroy'])->name('destroy');
     });
 });
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
