@@ -18,3 +18,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('photos', PhotoController::class);
     Route::get('/home', [PostController::class, 'index'])->name('home');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

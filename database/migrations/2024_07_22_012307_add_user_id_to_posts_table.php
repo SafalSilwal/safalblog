@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->bigInteger('user_id')->unsigned()->nullable()->after('content',function(){
-                
+
             });
         });
     }
 
-    /**
+    /** 
      * Reverse the migrations.
      */
     public function down(): void
