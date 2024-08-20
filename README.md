@@ -68,7 +68,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 Several Challanges I had faced during completing this assignment.Authorization issues ensure only post owners can view, edit, or delete posts, requiring identity verification in controller methods. Input validation is essential to prevent invalid data submissions, using Laravel's built-in validation.
  Properly handling relationships with Eloquent ensures efficient data management between users and their posts. Accurate database migrations are necessary to support the required table structures and relationships. Clear error handling and user feedback improve user experience and debugging. Finally, correct use of route model binding and dependency injection simplifies controller methods and ensures reliable data retrieval and handling.
 
- The main 
+ The main difficulty i faced during it was the middleware creation for authentication and authorization. Beside that the authorization was also a big challenge. It was very difficult to do role wise authentication. I had to set the role for use, create a seeder file for inserting role then create a middleware for role wise authentication.
 
 
 
