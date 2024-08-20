@@ -12,10 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('content');
-            $table->timestamps();
+    $table->string('title');
+    $table->longText('content'); // Changed from text to longText
+    $table->unsignedBigInteger('user_id'); // Add user_id for the relationship
+    $table->timestamps();
+
+    // Set up the foreign key relationship
+    $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

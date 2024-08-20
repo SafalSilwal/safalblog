@@ -21,9 +21,9 @@
 <body>
     <div class="container-fluid">
         <!-- Top Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-primary text-white">
-            <div class="container-fluid text-white">
-                <span class="navbar-brand text-white display-1">Admin Dashboard</span>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <span class="navbar-brand">Admin Dashboard</span>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -32,7 +32,7 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- User Dropdown -->
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ Auth::user()->name }}
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -51,28 +51,32 @@
                 </div>
             </div>
         </nav>
-<div class="container-fluid">
+
         <div class="row">
             <!-- Sidebar -->
-            <nav id="sidebar" class="col-md-3 col-lg-2 bg-dark sidebar">
+            <nav id="sidebar" class="col-md-3 col-lg-2 bg-light sidebar">
                 <div class="position-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active text-white" href="{{ route('home') }}">
+                            <a class="nav-link active" href="{{ route('admin.dashboard') }}">
                                 <i class="bi bi-house-door"></i> Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('admin.posts.index') }}">
+                            <a class="nav-link" href="{{ route('admin.posts.index') }}">
                                 <i class="bi bi-file-earmark"></i> Blog Posts
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('admin.users.index') }}">
+                            <a class="nav-link" href="{{ route('admin.users.index') }}">
                                 <i class="bi bi-person"></i> Users
                             </a>
                         </li>
-                       
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-gear"></i> Settings
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -101,10 +105,6 @@
             </main>
         </div>
     </div>
-</div>
 </body>
 
 </html>
-
-
-

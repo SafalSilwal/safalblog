@@ -21,11 +21,12 @@
                     </tr>
                 </thead>
                 <tbody>
+                   
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->role }}</td>
+                            <td>{{ $user->is_admin == '0' ? 'admin' : 'normal' }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="User Actions">
                                     <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm">

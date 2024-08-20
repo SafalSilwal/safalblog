@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\BlogModel;
+use App\Models\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,16 +27,21 @@ class PostController extends Controller
         $posts = $this->fetchAllPosts();
         return $this->renderView('layouts.admin.posts.index', ['posts' => $posts]);
     }
-
+    public function show(Post $post)
+    {
+        $posts = $this->fetchAllPosts();
+       
+        return $this->renderView('layouts.admin.posts.index', ['posts' => $posts]);
+    }
     /**
      * Show the form for creating or editing a blog post.
      *
-     * @param  \App\Models\BlogModel|null  $post
+     * @param  \App\Models\Post|null  $post
      * @return \Illuminate\Contracts\View\View
      */
-    public function create(BlogModel $post = null)
+    public function create()
     {
-        return $this->renderView('layouts.admin.posts.create', ['post' => $post]);
+        return view('layouts.admin.posts.create');
     }
 
     /**
@@ -51,7 +56,9 @@ class PostController extends Controller
 
         $this->savePost($request);
 
-        return $this->redirectWithSuccess('admin.posts.index', 'Blog post created successfully.');
+        $posts = $this->fetchAllPosts();
+       
+        return $this->renderView('layouts.admin.posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -60,39 +67,46 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\View\View
      */
-    public function edit($id)
+    public function edit(  $id)
     {
         $post = $this->findPostOrFail($id);
-        return $this->renderView('layouts.admin.posts.create', ['post' => $post]);
+        return $this->renderView('layouts.admin.posts.edit', ['post' => $post]);
     }
 
     /**
      * Update the specified blog post.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\BlogModel  $post
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, BlogModel $post)
+    public function update(Request $request, Post $post)
     {
+      
         $this->validateRequest($request);
 
         $this->updatePost($post, $request);
 
-        return $this->redirectWithSuccess('admin.posts.index', 'Blog post updated successfully.');
+        $posts = $this->fetchAllPosts();
+       
+        return $this->renderView('layouts.admin.posts.index', ['posts' => $posts]);
     }
 
     /**
      * Remove the specified blog post.
      *
-     * @param  \App\Models\BlogModel  $post
+     * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(BlogModel $post)
+    public function destroy(Post $post)
     {
         $post->delete();
-        return $this->redirectWithSuccess('admin.posts.index', 'Blog post deleted successfully.');
+        return redirect()->back()->with('message', 'Blog post deleted successfully.');
+
     }
+
+    
+
 
     /**
      * Fetch all blog posts from the database.
@@ -101,7 +115,7 @@ class PostController extends Controller
      */
     protected function fetchAllPosts()
     {
-        return BlogModel::all();
+        return Post::all();
     }
 
     /**
@@ -114,9 +128,7 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'author' => 'required|string|max:255',
-            'description' => 'required|string',
-            'date' => 'required|date',
+            'content' => 'required|string',
         ]);
     }
 
@@ -128,11 +140,9 @@ class PostController extends Controller
      */
     protected function savePost(Request $request)
     {
-        BlogModel::create([
+        Post::create([
             'title' => $request->title,
-            'Author' => $request->author,
-            'Description' => $request->description,
-            'Date' => $request->date,
+            'content' => $request->content,
             'user_id' => Auth::id(),
         ]);
     }
@@ -141,27 +151,27 @@ class PostController extends Controller
      * Find a blog post by ID or fail.
      *
      * @param  int  $id
-     * @return \App\Models\BlogModel
+     * @return \App\Models\Post
      */
     protected function findPostOrFail($id)
     {
-        return BlogModel::findOrFail($id);
+        return Post::findOrFail($id);
     }
 
     /**
      * Update a blog post.
      *
-     * @param  \App\Models\BlogModel  $post
+     * @param  \App\Models\Post  $post
      * @param  \Illuminate\Http\Request  $request
      * @return void
      */
-    protected function updatePost(BlogModel $post, Request $request)
+    protected function updatePost(Post $post, Request $request)
     {
         $post->update([
             'title' => $request->title,
-            'Author' => $request->author,
-            'Description' => $request->description,
-            'Date' => $request->date,
+          
+            'content' => $request->content,
+           
         ]);
     }
 

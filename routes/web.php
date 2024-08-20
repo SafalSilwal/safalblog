@@ -13,14 +13,14 @@ Route::get('/', function () {
 })->name('frontpage');
 
 // Public Blog Routes for Users and Authors
-Route::prefix('posts')->name('posts.')->group(function () {
-    Route::get('/', [BlogController::class, 'index'])->name('index');
-    Route::get('create', [BlogController::class, 'create'])->name('create');
-    Route::post('store', [BlogController::class, 'store'])->name('store');
-    Route::get('{id}/edit', [BlogController::class, 'edit'])->name('edit');
-    Route::put('{id}/update', [BlogController::class, 'update'])->name('update');
-    Route::delete('{id}/destroy', [BlogController::class, 'destroy'])->name('destroy');
-});
+// Route::prefix('posts')->name('posts.')->group(function () {
+//     Route::get('/', [BlogController::class, 'index'])->name('index');
+//     Route::get('create', [BlogController::class, 'create'])->name('create');
+//     Route::post('store', [BlogController::class, 'store'])->name('store');
+//     Route::get('{id}/edit', [BlogController::class, 'edit'])->name('edit');
+//     Route::put('{id}/update', [BlogController::class, 'update'])->name('update');
+//     Route::delete('{id}/destroy', [BlogController::class, 'destroy'])->name('destroy');
+// });
 
 // Authentication Routes
 Auth::routes();
@@ -37,7 +37,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('users', UserController::class);
 
     // Admin Blog Management Routes
-    Route::resource('users', PostController::class);
+    Route::resource('posts', PostController::class);
    
 });
 

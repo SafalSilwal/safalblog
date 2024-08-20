@@ -52,7 +52,8 @@ class UserController extends Controller
 
         User::create($this->userData($request));
 
-        return $this->redirectWithSuccess('admin.users.index', 'User created successfully.');
+        $users = User::all(); // Retrieve all users
+        return $this->view('layouts.admin.users.index', compact('users'));
     }
 
     /**
@@ -64,7 +65,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id); // Find user by ID or fail
-        return $this->view('layouts.admin.users.create', compact('user'));
+        return $this->view('layouts.admin.users.edit', compact('user'));
     }
 
     /**
@@ -86,7 +87,7 @@ class UserController extends Controller
 
         $user->save(); // Save updated user
 
-        return $this->redirectWithSuccess('admin.users.index', 'User updated successfully.');
+        return redirect()->back()->with('message', 'User updated successfully.');
     }
 
     /**
@@ -98,7 +99,7 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete(); // Delete the user
-        return $this->redirectWithSuccess('admin.users.index', 'User deleted successfully.');
+        return redirect()->back()->with('message', 'Blog post deleted successfully.');
     }
 
     /**
@@ -112,7 +113,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users' . ($request->route('user') ? ",{$request->route('user')->id}" : ''),
-            'role' => 'required|string|in:admin,author,user',
+            'is_admin' => 'required|string|in:0,1',
             'password' => 'required|string|min:8|confirmed',
         ]);
     }
@@ -128,7 +129,7 @@ class UserController extends Controller
         return [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'role' => $request->input('role'),
+            'is_admin' => $request->input('is_admin'),
             'password' => $request->filled('password') ? Hash::make($request->input('password')) : null,
         ];
     }

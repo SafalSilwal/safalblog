@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
+use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 
 use MongoDB\Laravel\Auth\User as Authenticatable;
 
@@ -24,7 +25,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_admin'
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -54,9 +57,9 @@ class User extends Authenticatable
     }
 
 
-    // public function isAdmin()
-    // {
-    //     return $this->is_admin;
-    // }
+    public function isAdmin()
+    {
+        return $this->is_admin;
+    }
 }
    
