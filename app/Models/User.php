@@ -77,7 +77,7 @@ class User extends Authenticatable
     public function hasauthorRole($role)
     {
         
-        $allowedRoles= ['admin','user'];
+        $allowedRoles= ['admin','author'];
         return in_array($role, $allowedRoles); 
     }
 }
