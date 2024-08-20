@@ -65,4 +65,10 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-Several Challanges I had faced during completing this assignment.Authorization issues ensure only post owners can view, edit, or delete posts, requiring identity verification in controller methods. Input validation is essential to prevent invalid data submissions, using Laravel's built-in validation. Properly handling relationships with Eloquent ensures efficient data management between users and their posts. Accurate database migrations are necessary to support the required table structures and relationships. Clear error handling and user feedback improve user experience and debugging. Finally, correct use of route model binding and dependency injection simplifies controller methods and ensures reliable data retrieval and handling.
+Several Challanges I had faced during completing this assignment.Authorization issues ensure only post owners can view, edit, or delete posts, requiring identity verification in controller methods. Input validation is essential to prevent invalid data submissions, using Laravel's built-in validation.
+ Properly handling relationships with Eloquent ensures efficient data management between users and their posts. Accurate database migrations are necessary to support the required table structures and relationships. Clear error handling and user feedback improve user experience and debugging. Finally, correct use of route model binding and dependency injection simplifies controller methods and ensures reliable data retrieval and handling.
+
+ The main 
+
+
+

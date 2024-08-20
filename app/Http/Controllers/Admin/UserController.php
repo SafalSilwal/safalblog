@@ -18,6 +18,7 @@ class UserController extends Controller
     {
      
         $this->middleware('admin');
+        $this->middleware('isadmin');
       
         
     }
@@ -41,7 +42,11 @@ class UserController extends Controller
      */
     public function create(User $user = null)
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return redirect()->back()->with('error', 'You do not have permission to access this page.');
+        }
         return $this->view('layouts.admin.users.create', compact('user'));
+
     }
 
     /**
@@ -68,6 +73,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        if (!Auth::user()->hasRole('admin')) {
+            return redirect()->back()->with('error', 'You do not have permission to access this page.');
+        }
         $user = User::findOrFail($id); // Find user by ID or fail
         return $this->view('layouts.admin.users.edit', compact('user'));
     }
@@ -117,7 +125,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users' . ($request->route('user') ? ",{$request->route('user')->id}" : ''),
-            'is_admin' => 'required|string|in:0,1',
+            'role' => 'required|string|in:admin,user,author',
             'password' => 'required|string|min:8|confirmed',
         ]);
     }
@@ -133,7 +141,7 @@ class UserController extends Controller
         return [
             'name' => $request->input('name'),
             'email' => $request->input('email'),
-            'is_admin' => $request->input('is_admin'),
+            'role' => $request->input('role'),
             'password' => $request->filled('password') ? Hash::make($request->input('password')) : null,
         ];
     }

@@ -25,7 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_admin'
+        'role'
     ];
 
 
@@ -57,9 +57,28 @@ class User extends Authenticatable
     }
 
 
-    public function isnotAdmin()
+    public function getRole($role)
     {
-        return $this->is_admin;
+        return $this->$role;
+      
+    }
+    public function hasRole($role)
+    {
+        
+        $allowedRoles= ['admin', 'user', 'author'];
+        return in_array($role, $allowedRoles); 
+    }
+    public function hasadminRole($role)
+    {
+        
+        $allowedRoles= ['admin'];
+        return in_array($role, $allowedRoles); 
+    }
+    public function hasauthorRole($role)
+    {
+        
+        $allowedRoles= ['admin','user'];
+        return in_array($role, $allowedRoles); 
     }
 }
    

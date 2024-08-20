@@ -18,6 +18,8 @@ class PostController extends Controller
     {
        
         $this->middleware('admin');
+        $this->middleware('author');
+        
         
     }
 
@@ -28,6 +30,7 @@ class PostController extends Controller
      */
     public function index()
     {
+        dd(Auth::user()->hasRole('author'));
         $posts = $this->fetchAllPosts();
         return $this->renderView('layouts.admin.posts.index', ['posts' => $posts]);
     }
@@ -45,6 +48,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        if (Auth::user()->hasRole('author')) {
+            return redirect()->back()->with('error', 'You do not have permission to access this page.');
+        }
         return view('layouts.admin.posts.create');
     }
 
@@ -74,6 +80,9 @@ class PostController extends Controller
     public function edit(  $id)
     {
         $post = $this->findPostOrFail($id);
+        if (!Auth::user()->hasRole('author')) {
+            return redirect()->back()->with('error', 'You do not have permission to access this page.');
+        }
         return $this->renderView('layouts.admin.posts.edit', ['post' => $post]);
     }
 
@@ -132,6 +141,7 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
     }
@@ -147,6 +157,7 @@ class PostController extends Controller
         Post::create([
             'title' => $request->title,
             'content' => $request->content,
+            'author' => $request->author,
             'user_id' => Auth::id(),
         ]);
     }

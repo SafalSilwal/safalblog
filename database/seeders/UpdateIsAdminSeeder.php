@@ -14,6 +14,6 @@ class UpdateIsAdminSeeder extends Seeder
      */
     public function run()
     {
-        User::query()->update(['is_admin' => '0']);
+        User::query()->insert(['role' => 'admin']);
     }
 }

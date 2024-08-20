@@ -18,7 +18,11 @@
                 value="{{ old('title', $post->title) }}" required>
         </div>
 
-     
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" class="form-control" id="author" name="author" 
+            value="{{ old('author', $post->author) }}" required>
+        </div>
 
         <!-- content Input -->
         <div class="mb-3">

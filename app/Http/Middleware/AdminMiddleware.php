@@ -21,11 +21,9 @@ class AdminMiddleware
             return redirect()->route('login')->with('error', 'Please log in to access this page.');
         }
 
-        if (Auth::user()->isnotAdmin() == 1) {
-            return redirect()->route('frontpage')->with('message', 'You do not have permission to access admin.');
-        }
-
         return $next($request);
+
+        
     }
 
 

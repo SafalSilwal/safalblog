@@ -34,10 +34,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Admin User Management Routes
 
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class)->middleware('isadmin');;
 
     // Admin Blog Management Routes
-    Route::resource('posts', PostController::class);
+    Route::resource('posts', PostController::class)->middleware('author');;
    
 });
 

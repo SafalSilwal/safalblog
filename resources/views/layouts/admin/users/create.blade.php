@@ -34,13 +34,15 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="is_admin" class="form-label">Role</label>
-                    <label for="is_admin" class="form-label">User Role</label>
-            <select class="control form-select @error('is_admin') is-invalid @enderror" id="is_admin" name="is_admin" required>
-                <option value="0" {{ old('is_admin') == '0' ? 'selected' : '' }}>Admin</option>
-                <option value="1" {{ old('is_admin') == '1' ? 'selected' : '' }}>Normal</option>
+                    <label for="role" class="form-label">Role</label>
+                    <label for="role" class="form-label">User Role</label>
+            <select class="control form-select @error('role') is-invalid @enderror" id="role" name="role" required>
+            
+        <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
+        <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User</option>
+        <option value="author" {{ old('role', $user->role) == 'author' ? 'selected' : '' }}>Author</option>
             </select>
-                    @error('is_admin')
+                    @error('role')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

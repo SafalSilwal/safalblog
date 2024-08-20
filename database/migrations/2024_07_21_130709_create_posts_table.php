@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
     $table->string('title');
     $table->longText('content'); // Changed from text to longText
+    $table->string('author'); // Changed from text to longText
     $table->unsignedBigInteger('user_id'); // Add user_id for the relationship
     $table->timestamps();
 

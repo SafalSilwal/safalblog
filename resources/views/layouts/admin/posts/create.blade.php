@@ -18,6 +18,12 @@
                 value="" required>
         </div>
 
+        <div class="mb-3">
+            <label for="author" class="form-label">Author</label>
+            <input type="text" class="form-control" id="author" name="author" 
+                value="" required>
+        </div>
+
         <!-- Content -->
         <div class="mb-3">
             <label for="content" class="form-label">Content</label>
