@@ -21,10 +21,12 @@ class AdminMiddleware
             return redirect()->route('login')->with('error', 'Please log in to access this page.');
         }
 
-        // if (!Auth::user()->isAdmin()) {
-        //     return redirect()->route('posts.index')->with('error', 'You do not have permission to access admin.');
-        // }
+        if (Auth::user()->isnotAdmin() == 1) {
+            return redirect()->route('frontpage')->with('message', 'You do not have permission to access admin.');
+        }
 
         return $next($request);
     }
+
+
 }

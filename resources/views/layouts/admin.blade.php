@@ -54,21 +54,21 @@
 <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <nav id="sidebar" class="col-md-3 col-lg-2 bg-dark sidebar">
+            <nav id="sidebar" class="col-md-3 col-lg-2 bg-dark sidebar" style="height:90vh !important;">
                 <div class="position-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active text-white" href="{{ route('home') }}">
+                            <a class="nav-link active text-white display-2" href="{{ route('home') }}">
                                 <i class="bi bi-house-door"></i> Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('admin.posts.index') }}">
+                            <a class="nav-link text-white display-2" href="{{ route('admin.posts.index') }}">
                                 <i class="bi bi-file-earmark"></i> Blog Posts
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('admin.users.index') }}">
+                            <a class="nav-link text-white display-2" href="{{ route('admin.users.index') }}">
                                 <i class="bi bi-person"></i> Users
                             </a>
                         </li>
@@ -84,6 +84,12 @@
                     @if (session('error'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             {{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    @if (session('message'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('message') }}
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif

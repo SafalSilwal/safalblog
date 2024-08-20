@@ -57,7 +57,7 @@ class User extends Authenticatable
     }
 
 
-    public function isAdmin()
+    public function isnotAdmin()
     {
         return $this->is_admin;
     }

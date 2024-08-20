@@ -29,7 +29,7 @@
                             <td>{{ $user->is_admin == '0' ? 'admin' : 'normal' }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="User Actions">
-                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm">
+                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm me-2">
                                         <i class="bi bi-pencil"></i> Edit
                                     </a>
                                     <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?');">

@@ -35,7 +35,7 @@
 
                 <div class="mb-3">
                     <label for="is_admin" class="form-label">Is Admin?</label>
-                    <select class="form-select @error('is_admin') is-invalid @enderror" id="is_admin" name="is_admin" required>
+                    <select class="form-control form-select @error('is_admin') is-invalid @enderror" id="is_admin" name="is_admin" required>
     @if (auth()->user()->isAdmin())
         <option value="1" {{ old('is_admin', $user->is_admin) == '0' ? 'selected' : '' }}>Admin</option>
         <option value="0" {{ old('is_admin', $user->is_admin) == '1' ? 'selected' : '' }}>Normal</option>
