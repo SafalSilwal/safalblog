@@ -34,7 +34,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Admin User Management Routes
 
-    Route::resource('users', UserController::class)->middleware('isadmin');;
+    Route::resource('users', UserController::class);;
 
     // Admin Blog Management Routes
     Route::resource('posts', PostController::class)->middleware('author');;

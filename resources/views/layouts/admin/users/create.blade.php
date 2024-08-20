@@ -38,9 +38,9 @@
                     <label for="role" class="form-label">User Role</label>
             <select class="control form-select @error('role') is-invalid @enderror" id="role" name="role" required>
             
-        <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
-        <option value="user" {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User</option>
-        <option value="author" {{ old('role', $user->role) == 'author' ? 'selected' : '' }}>Author</option>
+        <option value="admin" selected>Admin</option>
+        <option value="user">User</option>
+        <option value="author" >Author</option>
             </select>
                     @error('role')
                         <div class="invalid-feedback">{{ $message }}</div>

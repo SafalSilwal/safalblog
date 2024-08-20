@@ -15,7 +15,7 @@
             <thead class="table-dark">
                 <tr>
                     <th>Title</th>
-                   
+                    <th>Author</th>
                     <th>Content</th>
                     <th>Date</th>
                     <th>Actions</th>
@@ -25,7 +25,7 @@
                 @forelse ($posts as $post)
                     <tr>
                         <td>{{ $post->title }}</td>
-                       
+                        <td>{{ $post->author }}</td>
                         <td>{{ Str::limit($post->content, 50) }}</td>
                         <td>{{ $post->created_at->format('Y-m-d') }}</td>
                         <td class="d-flex">

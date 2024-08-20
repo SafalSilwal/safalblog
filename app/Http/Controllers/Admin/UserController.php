@@ -42,7 +42,7 @@ class UserController extends Controller
      */
     public function create(User $user = null)
     {
-        if (!Auth::user()->hasRole('admin')) {
+        if (!Auth::user()->hasadminRole('admin')) {
             return redirect()->back()->with('error', 'You do not have permission to access this page.');
         }
         return $this->view('layouts.admin.users.create', compact('user'));
@@ -111,7 +111,10 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete(); // Delete the user
-        return redirect()->back()->with('message', 'Blog post deleted successfully.');
+        if (!Auth::user()->hasadminRole('admin')) {
+            return redirect()->back()->with('error', 'You do not have permission to access this page.');
+        }
+        return redirect()->back()->with('message', 'User deleted successfully.');
     }
 
     /**

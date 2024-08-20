@@ -81,6 +81,10 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-4 py-4">
                 <div class="container">
                     <!-- Alerts for Errors and Success Messages -->
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ 'You are logged in!' }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                     @if (session('error'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             {{ session('error') }}

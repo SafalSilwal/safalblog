@@ -72,3 +72,8 @@ Several Challanges I had faced during completing this assignment.Authorization i
 
 
 
+The login credential for admin panel
+
+un: admin@gmail.com 
+pw:admin@admin
+
