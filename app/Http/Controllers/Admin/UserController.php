@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 
+
+
 class UserController extends Controller
 {
     /**
@@ -16,7 +18,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-     
+       
         $this->middleware('admin');
         $this->middleware('isadmin');
       

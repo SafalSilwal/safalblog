@@ -31,17 +31,28 @@ return [
     */
 
     'connections' => [
-        'mongodb' => [
-            'driver' => 'mongodb',
-            'dsn' => env('MONGO_DB_CONNECTION'). '://'.env('MONGO_DB_HOST').':'.env('MONGO_DB_PORT'),
-            'database' => env('MONGO_DB_DATABASE')
-        ],
+        // 'mongodb' => [
+        //     'driver' => 'mongodb',
+        //     'dsn' => env('MONGO_DB_CONNECTION'). '://'.env('MONGO_DB_HOST').':'.env('MONGO_DB_PORT'),
+        //     'database' => env('MONGO_DB_DATABASE'),
+        //     'username' => '',
+        //     'password' => '',
+        //     'options'  => [
+        //         'authSource' => env('MONGO_AUTH_SOURCE', 'admin'),
+        //     ],
+        // ],
 
         'mongodb' => [ 
             'driver' => 'mongodb',
             'dsn' => env('DB_DSN', 'mongodb://localhost:27017'),
             'database' => env('DB_DATABASE', 'safal'),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
+            'options'  => [
+            'authSource' => env('MONGO_AUTH_SOURCE', 'admin'),
+        ],
         ], 
+      
 
         // 'sqlite' => [
         //     'driver' => 'sqlite',
